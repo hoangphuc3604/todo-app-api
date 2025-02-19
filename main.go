@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -21,6 +22,7 @@ func main() {
 	}
 
 	r := gin.Default()
+	r.Use(middleware.Recovery())
 
 	v1 := r.Group("/v1")
 	{
@@ -34,7 +36,9 @@ func main() {
 		}
 	}
 
-	r.GET("/ping", middleware.Recovery(),func(c *gin.Context) {
+	r.GET("/ping", func(c *gin.Context) {
+		fmt.Println([]int{}[0])
+
 		c.JSON(http.StatusOK, gin.H{
 			"message": "pong",
 		})
