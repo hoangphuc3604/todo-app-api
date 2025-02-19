@@ -67,6 +67,10 @@ func ErrorInvalidRequest(err error) *AppErr {
 	return NewCustomError(err, "Invalid request", "INVALID_REQUEST")
 }
 
+func ErrorInternalServer(err error) *AppErr {
+	return NewFullErrorResponse(http.StatusInternalServerError, err, "Internal server error", err.Error(), "INTERNAL_SERVER_ERROR")
+}
+
 func ErrorCanNotCreateEntity(entityName string, err error) *AppErr {
 	return NewCustomError(
 		err,

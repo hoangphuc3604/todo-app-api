@@ -8,16 +8,9 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
+	"social-todo-list/middleware"
 	gin_item "social-todo-list/modules/item/transport/gin"
 )
-
-// `ID` int NOT NULL AUTO_INCREMENT,
-//   `title` varchar(255) NOT NULL,
-//   `image` varchar(255) DEFAULT NULL,
-//   `description` text,
-//   `status` enum('DOING','DONE','DELETED') NOT NULL,
-//   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-//   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   
 func main() {
 	dsn := "root:root@tcp(127.0.0.1:3306)/todo_list?charset=utf8mb4&parseTime=True&loc=Local"
@@ -41,7 +34,7 @@ func main() {
 		}
 	}
 
-	r.GET("/ping", func(c *gin.Context) {
+	r.GET("/ping", middleware.Recovery(),func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "pong",
 		})
